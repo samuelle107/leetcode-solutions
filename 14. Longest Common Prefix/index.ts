@@ -5,6 +5,8 @@
  * @returns the character if all the strings at position index is a match, otherwise undefined
  */
 function areCharsAtICommon(strs: string[], index: number): string | undefined {
+  // Assume there is a character at the first str's current position.
+  // If there is no character, then it is not possible for this position to be part of the longest prefix
   const baseChar: string | undefined = strs[0][index];
 
   if (baseChar === undefined) return undefined;
