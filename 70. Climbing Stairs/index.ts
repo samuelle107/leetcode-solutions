@@ -66,7 +66,6 @@ function choose(n: number, r: number): number {
 }
 
 function getDistinctNumberOfSteps(n: number): number {
-  const low = Math.ceil(n / 2);
   let start = n;
   let r = 0;
 
