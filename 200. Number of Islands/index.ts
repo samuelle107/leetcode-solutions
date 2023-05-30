@@ -27,6 +27,7 @@ function getAdjCells(x: number, y: number, grid: Grid, visited: Set<string>) {
 function bfs(
   i: number,
   j: number,
+  grid: Grid,
   q: [number, number][],
   visited: Set<string>
 ) {
@@ -65,7 +66,7 @@ function numIslands(grid: Grid): number {
       // No point in doing a bfs in the water, or if the island has already been discovered
       if (node === "0" || visited.has(strNode)) continue;
 
-      bfs(i, j, q, visited);
+      bfs(i, j, grid, q, visited);
       islands += 1;
     }
   }
