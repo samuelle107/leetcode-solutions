@@ -9,38 +9,42 @@ class TreeNode {
   }
 }
 
-function getAdjNodes(root: TreeNode, depth: number) {
-  const nodes: [TreeNode, number][] = [];
+function getAdjNodes(root: TreeNode) {
+  const nodes: TreeNode[] = [];
 
-  if (root.left) nodes.push([root.left, depth + 1]);
-  if (root.right) nodes.push([root.right, depth + 1]);
+  if (root.left) nodes.push(root.left);
+  if (root.right) nodes.push(root.right);
 
   return nodes;
 }
 
 function maxDepth(root: TreeNode | null): number {
   let depth = 0;
-  const q: [TreeNode, number][] = [];
+  let q: TreeNode[] = [];
   const visited = new Set<TreeNode>();
 
   if (!root) return depth;
 
-  q.push([root, 1]);
+  q.push(root);
   visited.add(root);
 
   while (q.length > 0) {
-    const node = q.pop()!;
-    depth = Math.max(node[1], depth);
-    const adjNodes = getAdjNodes(node[0], node[1]);
+    // Slightly modified BFS.
+    // The goal is to traverse a depth every iteration
+    // At every depth, get the adj nodes of all of the nodes at depth n
+    // Replace the q with the current iteration's adj nodes
+    q = q.map((node) => getAdjNodes(node)).flat();
 
-    for (let i = 0; i < adjNodes.length; i += 1) {
-      const curr = adjNodes[i];
+    for (let i = 0; i < q.length; i += 1) {
+      const curr = q[i];
 
-      if (!visited.has(curr[0])) {
+      if (!visited.has(curr)) {
         q.push(curr);
-        visited.add(curr[0]);
+        visited.add(curr);
       }
     }
+
+    depth += 1;
   }
 
   return depth;
