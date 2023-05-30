@@ -16,12 +16,12 @@ function getAdjCells(x: number, y: number, grid: Grid, visited: Set<string>) {
 
   const adjNodes: [number, number][] = [];
 
-  if (l === "1") adjNodes.push([x - 1, y]);
-  if (r === "1") adjNodes.push([x + 1, y]);
-  if (u === "1") adjNodes.push([x, y - 1]);
-  if (d === "1") adjNodes.push([x, y + 1]);
+  if (l === "1" && !visited.has(`${x - 1}.${y}`)) adjNodes.push([x - 1, y]);
+  if (r === "1" && !visited.has(`${x + 1}.${y}`)) adjNodes.push([x + 1, y]);
+  if (u === "1" && !visited.has(`${x}.${y - 1}`)) adjNodes.push([x, y - 1]);
+  if (d === "1" && !visited.has(`${x}.${y + 1}`)) adjNodes.push([x, y + 1]);
 
-  return adjNodes.filter(([x, y]) => !visited.has(`${x}.${y}`));
+  return adjNodes;
 }
 
 function bfs(
