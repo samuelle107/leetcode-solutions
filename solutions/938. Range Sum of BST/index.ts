@@ -1,3 +1,5 @@
+import { TreeNode } from "../../types/binary-tree";
+
 /**
  * Time - O(N)
  * Space - O(N)
