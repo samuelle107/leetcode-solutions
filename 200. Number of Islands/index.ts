@@ -41,13 +41,14 @@ function bfs(
     const [x, y] = coords!;
     const adjNodes = getAdjCells(x, y, grid, visited);
 
-    adjNodes.forEach((node) => {
+    for (let i = 0; i < adjNodes.length; i += 1) {
+      const node = adjNodes[i];
       const [x, y] = node;
       const strNode = `${x}.${y}`;
 
       visited.add(strNode);
       q.push([x, y]);
-    });
+    }
   }
 }
 
