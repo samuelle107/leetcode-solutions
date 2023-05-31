@@ -71,22 +71,13 @@ function orangesRotting(grid: (0 | 1 | 2)[][]): number {
         if (!visited.has(parseCoord(x, y))) {
           q.push([x, y]);
           visited.add(parseCoord(x, y));
-          grid[x][y] = 2;
+          count[1] -= 1;
         }
       });
     });
   }
 
-  // If there remains a fresh orange, then it is not possible
-  for (let i = 0; i < grid.length; i += 1) {
-    for (let j = 0; j < grid[0].length; j += 1) {
-      const curr = grid[i][j];
-
-      if (curr === 1) {
-        return -1;
-      }
-    }
-  }
+  if (count[1] > 0) return -1;
 
   return counter;
 }
