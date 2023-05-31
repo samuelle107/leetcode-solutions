@@ -26,7 +26,7 @@ function getAdjNodes(node: [number, number], grid: (0 | 1 | 2)[][]) {
 function orangesRotting(grid: (0 | 1 | 2)[][]): number {
   let q: [number, number][] = [];
   const visited = new Set<string>();
-  let counter = -1;
+  let counter = 0;
 
   // Stores the initial counts of fresh, rotten, and nothing
   let count = {
@@ -49,32 +49,31 @@ function orangesRotting(grid: (0 | 1 | 2)[][]): number {
     }
   }
 
-  // There are fresh oranges, and no rotten oranges
-  if (count[1] > 0 && count[2] === 0) {
-    return -1;
-  }
-
-  // There are no rotten oranges
-  if (count[2] === 0) {
-    return 0;
-  }
-
-  while (q.length > 0) {
+  // If the count of fresh is 0, then there is no need to continue rotting
+  // Without this condition
+  while (q.length > 0 && count[1] > 0) {
     counter += 1;
-
     const tempQ = q;
 
+    // clear the q
     q = [];
 
-    tempQ.forEach((node) => {
-      getAdjNodes(node, grid).forEach(([x, y]) => {
+    // Does ring scans
+    // Each iteration of the while loop, get all of the adjacent cells and add it to the q
+    for (let i = 0; i < tempQ.length; i += 1) {
+      const node = tempQ[i];
+      const adjNodes = getAdjNodes(node, grid);
+
+      for (let j = 0; j < adjNodes.length; j += 1) {
+        const [x, y] = adjNodes[j];
+
         if (!visited.has(parseCoord(x, y))) {
           q.push([x, y]);
           visited.add(parseCoord(x, y));
           count[1] -= 1;
         }
-      });
-    });
+      }
+    }
   }
 
   if (count[1] > 0) return -1;
