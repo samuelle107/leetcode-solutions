@@ -10,7 +10,17 @@ function getAdjNodes(node: [number, number], grid: (0 | 1 | 2)[][]) {
   const l: [number, number] = [x - 1, y];
   const r: [number, number] = [x + 1, y];
 
-  return [u, d, l, r].filter((coord) => !!grid[coord[0]]?.[coord[1]]);
+  const arr: [number, number][] = [];
+
+  const dirs = [u, d, l, r];
+
+  for (let i = 0; i < dirs.length; i += 1) {
+    const [x1, y1] = dirs[i];
+
+    if (grid[x1]?.[y1]) arr.push(dirs[i]);
+  }
+
+  return arr;
 }
 
 function orangesRotting(grid: (0 | 1 | 2)[][]): number {
