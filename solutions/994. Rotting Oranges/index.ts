@@ -90,11 +90,3 @@ function orangesRotting(grid: (0 | 1 | 2)[][]): number {
 
   return counter;
 }
-
-const grid: (0 | 1 | 2)[][] = [
-  [2, 1, 1],
-  [0, 1, 1],
-  [1, 0, 1],
-];
-
-console.log(orangesRotting(grid));
