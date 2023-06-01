@@ -66,12 +66,8 @@ function subarraySum(nums: number[], k: number): number {
       counter += cumulativeSumFreq.get(cumSum - k)!;
     }
 
-    // Set/Update cum sum freq
-    if (cumulativeSumFreq.has(cumSum)) {
-      cumulativeSumFreq.set(cumSum, cumulativeSumFreq.get(cumSum)! + 1);
-    } else {
-      cumulativeSumFreq.set(cumSum, 1);
-    }
+    // // Set/Update cum sum freq
+    cumulativeSumFreq.set(cumSum, (cumulativeSumFreq.get(cumSum) ?? 0) + 1);
   }
 
   return counter;
