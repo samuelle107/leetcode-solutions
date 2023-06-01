@@ -1,8 +1,14 @@
+/**
+ * Space - O(N!)
+ * Time - O(N!)
+ * @param nums
+ * @returns
+ */
 function permute(nums: number[]): number[][] {
   const solutions: number[][] = [];
 
-  function backtrack(curr: number[], remainingNums: Set<number>) {
-    if (remainingNums.size === 0) {
+  function backtrack(curr: number[], remainingNums: number[]) {
+    if (remainingNums.length === 0) {
       solutions.push([...curr]);
 
       return;
@@ -13,21 +19,20 @@ function permute(nums: number[]): number[][] {
     for (let i = 0; i < arr.length; i += 1) {
       const nextNum = arr[i];
 
-      remainingNums.delete(nextNum);
+      // Remove current element from remaining
+      // Alternative to using Set to track remaining elements
+      const newRemaining = [
+        ...remainingNums.slice(0, i),
+        ...remainingNums.slice(i + 1),
+      ];
+
       curr.push(nextNum);
-
-      backtrack(curr, remainingNums);
-
-      remainingNums.add(nextNum);
+      backtrack(curr, newRemaining);
       curr.pop();
     }
   }
 
-  backtrack([], new Set(nums));
+  backtrack([], nums);
 
   return solutions;
 }
-
-const nums = [1, 2, 3];
-
-console.log(permute(nums));
