@@ -1,3 +1,9 @@
+/**
+ * Time - O(2^N)
+ * Space - O(2^N)
+ * @param nums
+ * @returns
+ */
 function subsets(nums: number[]): number[][] {
   const solutions: number[][] = [];
 
