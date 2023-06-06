@@ -28,9 +28,7 @@ function letterCombinations(digits: string): string[] {
     for (let i = 0; i < alphas.length; i += 1) {
       const alpha = alphas[i];
 
-      curr += alpha;
-      backtrack(index + 1, curr);
-      curr = curr.slice(0, curr.length - 1);
+      backtrack(index + 1, curr + alpha);
     }
   }
 
