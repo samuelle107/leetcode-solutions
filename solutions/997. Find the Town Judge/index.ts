@@ -1,45 +1,32 @@
+/**
+ * Space - O(N)
+ * Time - O(T + N), T is number of trusts, and N is number of people
+ * @param n
+ * @param trust
+ * @returns
+ */
 function findJudge(n: number, trust: number[][]): number {
   if (trust.length === 0 && n === 1) {
     return n;
   }
 
-  const trustedByMap = new Map<number, number[]>();
-  const trustMap = new Map<number, number[]>();
+  /** A map containing the number of times the person has been trusted */
+  const trustedFreq = new Map<number, number>();
+  /** A set of people that are trusted by others */
+  const potentialJudges = new Set<number>();
 
   for (let i = 0; i < trust.length; i += 1) {
-    trustedByMap.set(trust[i][1], [
-      ...(trustedByMap.get(trust[i][1]) ?? []),
-      trust[i][0],
-    ]);
+    const [trustee, trusted] = trust[i];
 
-    trustMap.set(trust[i][0], [
-      ...(trustMap.get(trust[i][0]) ?? []),
-      trust[i][1],
-    ]);
+    trustedFreq.set(trusted, (trustedFreq.get(trusted) ?? 0) + 1);
+    potentialJudges.add(trustee);
   }
 
-  const arr = Array.from(trustedByMap);
-
-  for (let i = 0; i < arr.length; i += 1) {
-    const potential = arr[i];
-
-    if (
-      potential[1].length === n - 1 &&
-      trustMap.get(potential[0]) === undefined
-    ) {
-      return potential[0];
+  for (let [person, freq] of trustedFreq.entries()) {
+    if (freq === n - 1 && !potentialJudges.has(person)) {
+      return person;
     }
   }
 
   return -1;
 }
-
-const n = 4,
-  trust = [
-    [1, 3],
-    [1, 4],
-    [2, 3],
-    [2, 4],
-    [4, 3],
-  ];
-console.log(findJudge(n, trust));
