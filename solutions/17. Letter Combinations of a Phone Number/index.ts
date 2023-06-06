@@ -14,6 +14,7 @@ function letterCombinations(digits: string): string[] {
 
   function backtrack(index: number, curr: string) {
     if (index === digits.length) {
+      // Empty string is not allowed
       if (curr.length) {
         solutions.push(curr);
       }
@@ -22,7 +23,6 @@ function letterCombinations(digits: string): string[] {
     }
 
     const digit = digits.charAt(index);
-
     const alphas = phone[digit];
 
     for (let i = 0; i < alphas.length; i += 1) {
