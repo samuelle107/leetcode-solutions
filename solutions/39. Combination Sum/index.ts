@@ -11,41 +11,24 @@ function combinationSum(candidates: number[], target: number): number[][] {
       return;
     }
 
-    // With
     for (let i = 0; i < candidates.length; i += 1) {
       const candidate = candidates[i];
+      const prev = acc[acc.length - 1] ?? 0;
 
-      acc.push(candidate);
-
-      backtrack(cumSum + candidate, acc);
-
-      acc.pop();
+      // Inherently makes "acc" sorted
+      // Also makes it so that combinations that work, but are not sorted are not added
+      // Prevents perms of the same set from being added
+      if (candidate >= prev) {
+        acc.push(candidate);
+        backtrack(cumSum + candidate, acc);
+        acc.pop();
+      }
     }
-  }
-
-  const freq = new Map<number, number>();
-
-  for (let i = 0; i < candidates.length; i += 1) {
-    const curr = candidates[i];
-
-    freq.set(curr, (freq.get(curr) ?? 0) + 1);
   }
 
   backtrack(0, []);
 
-  const sortedSolutions = solutions.map((solution) =>
-    solution.sort((a, b) => a - b)
-  );
-
-  const unique = new Set<string>();
-
-  for (let i = 0; i < sortedSolutions.length; i += 1) {
-    const solution = sortedSolutions[i];
-
-    unique.add(JSON.stringify(solution));
-  }
-
-  return Array.from(unique).map((solution) => JSON.parse(solution) as number[]);
+  return solutions;
 }
 
 const candidates = [2, 3, 6, 7],
