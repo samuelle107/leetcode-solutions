@@ -2,14 +2,14 @@
 # yarn lockfile v1
 
 
-"@datastructures-js/heap@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@datastructures-js/heap/-/heap-4.3.1.tgz#d3752b5664202b99b41815f6117e501d8f66c632"
-  integrity sha512-au4fYa4fprREES58FnMOTFjg8lCYpSenF5tBu8C/iweMaj02rAOZUqlLUCqR3HIWzNfgTeCmAiyRHdjJVHrsIQ==
+"@datastructures-js/heap@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@datastructures-js/heap/-/heap-3.2.0.tgz#d8fcdbf58c462c8a3f0fdfd9c6a57ca11505321e"
+  integrity sha512-FcU5ZAyb+VIOZz1HABsJUsbJi2ZyUDO7aoe97hq4d3tK3z8nMgwdxf5bO0gafR0ExFi18YTspntqHLzt4XOgnA==
 
-"@datastructures-js/priority-queue@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@datastructures-js/priority-queue/-/priority-queue-6.3.0.tgz#f28e89488fa8723c54a922af41e16f5f410a8116"
-  integrity sha512-bJkryPys8zVYMCSjyBPYzJlw5V2kMeOYzGHRBXiGkwqTv8vZ/Ux5RO736T8Y6l3cH+ocbQV9UxlsFwA9qI4VhA==
+"@datastructures-js/priority-queue@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@datastructures-js/priority-queue/-/priority-queue-5.3.0.tgz#89afce79a19a3226c12cc6e9288f94ff60af26cf"
+  integrity sha512-0Dl0UooE9Uzz85qBP46HTjQHS5GN7NMNluN5/nMfxQAndG/1eNBJpBntLGT5QJarvMO3poLNBJzA3S4GPajp+w==
   dependencies:
-    "@datastructures-js/heap" "^4.3.1"
+    "@datastructures-js/heap" "^3.2.0"
