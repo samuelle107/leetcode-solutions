@@ -16,9 +16,15 @@ function findKthLargest(nums: number[], k: number): number {
     // This will m ake the q always have the top k elements in ascending order
     if (q.size() > k) {
       // Popping removes the smallest number (in a min priority queue)
-      q.pop();
+      q.dequeue();
     }
   }
 
-  return q.pop();
+  const res = q.dequeue();
+
+  if (typeof res === "number") {
+    return res;
+  }
+
+  return res.element;
 }
