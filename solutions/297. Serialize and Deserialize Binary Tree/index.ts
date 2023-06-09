@@ -6,74 +6,57 @@ import { TreeNode } from "../../types/binary-tree";
 function serialize(root: TreeNode | null): string {
   if (root === null) return "[]";
 
-  const solution: (number | null)[] = [];
+  const solutions: (number | null)[] = [];
   let q: (TreeNode | null)[] = [];
 
   q.push(root);
 
-  // Level BFS
   while (q.length) {
     const tempQ = q;
     q = [];
 
     for (let i = 0; i < tempQ.length; i += 1) {
-      const curr = tempQ[i];
+      const node = tempQ[i];
 
-      if (curr === null) {
-        solution.push(null);
+      solutions.push(node?.val ?? null);
 
-        continue;
-      } else {
-        solution.push(curr.val);
-      }
+      if (!node) continue;
 
-      q.push(curr.left);
-      q.push(curr.right);
+      q.push(node.left);
+      q.push(node.right);
     }
   }
 
-  return JSON.stringify(solution);
+  return JSON.stringify(solutions);
 }
 
 /*
  * Decodes your encoded data to tree.
  */
 function deserialize(data: string): TreeNode | null {
-  let stream: (number | null)[] = [];
   const arr = JSON.parse(data);
 
-  if (Array.isArray(arr)) {
-    if (arr.length === 0) return null;
+  if (arr.length === 0) return null;
 
-    stream = arr;
-  }
-
-  const rVal = stream[0];
-
-  if (rVal === null) return null;
-
-  const root = new TreeNode(rVal);
-  // Root has already been added, so start at 1
-  let i = 1;
+  const root = new TreeNode(arr[0]);
   let q: (TreeNode | null)[] = [root];
+  let i = 1;
 
-  // Slightly modified BFS
   while (q.length) {
     const node = q.shift();
 
+    // Node can be null or undefined (undefined if arr cannot shift anymore)
     if (!node) continue;
 
-    const lVal = stream[i];
-    const rVal = stream[i + 1];
+    // Make sure to not get burnt by doing !arr[i]
+    const left = arr[i] !== null ? new TreeNode(arr[i]) : null;
+    const right = arr[i + 1] !== null ? new TreeNode(arr[i + 1]) : null;
 
-    const leftNode = lVal !== null ? new TreeNode(lVal) : null;
-    const rightNode = rVal !== null ? new TreeNode(rVal) : null;
+    node.left = left;
+    node.right = right;
 
-    node.left = leftNode;
-    node.right = rightNode;
-
-    q.push(leftNode);
-    q.push(rightNode);
+    q.push(left);
+    q.push(right);
 
     i += 2;
   }
