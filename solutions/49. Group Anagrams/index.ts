@@ -1,3 +1,20 @@
+/**
+ * Time - O(N log(N))
+ * Space- O(N)
+ * @param str
+ * @returns
+ */
+function sortAlphabet(str: string): string {
+  return [...str].sort().join("");
+}
+
+/**
+ * Space - O(N)
+ * Time - O(N)
+ * @param s
+ * @param t
+ * @returns
+ */
 function isAnagram(s: string, t: string): boolean {
   if (s.length !== t.length) return false;
 
@@ -27,25 +44,23 @@ function isAnagram(s: string, t: string): boolean {
   return true;
 }
 
+/**
+ * Time - O(N * K * log(K))
+ * Space - O(N * K), where K = max length of a string
+ * @param strs
+ * @returns
+ */
 function groupAnagrams(strs: string[]): string[][] {
   const solution = new Map<string, string[]>();
 
   for (let i = 0; i < strs.length; i += 1) {
     const str = strs[i];
+    const sortedStr = sortAlphabet(str);
 
-    let found = false;
-
-    solution.forEach((v, k) => {
-      if (found) return;
-
-      if (isAnagram(str, k)) {
-        found = true;
-        solution.get(k)!.push(str);
-      }
-    });
-
-    if (found === false) {
-      solution.set(str, [str]);
+    if (solution.get(sortedStr)) {
+      solution.get(sortedStr)!.push(str);
+    } else {
+      solution.set(sortedStr, [str]);
     }
   }
 
